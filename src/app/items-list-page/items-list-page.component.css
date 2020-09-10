@@ -9,3 +9,7 @@ mat-spinner {
   position: absolute;
   margin: 30px auto;
 }
+
+small {
+  margin: 0 30px;
+}
