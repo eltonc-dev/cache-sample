@@ -3,7 +3,7 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor, HttpResponse
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {CacheService} from '../cache.service';
@@ -28,10 +28,12 @@ export class SimpleCacheInterceptor implements HttpInterceptor {
   protected sendRequest(req: HttpRequest<any>, next: HttpHandler) {
     this.cache.set(req);
     return next.handle(req).pipe(
-      tap(result => {
-        const cachedItem = this.cache.get(req);
-        if (cachedItem && !cachedItem.value.isStopped) {
-          cachedItem.value.next(result);
+      tap(event => {
+        if (event instanceof HttpResponse) {
+          const cachedItem = this.cache.get(req);
+          if (cachedItem && !cachedItem.value.isStopped) {
+            cachedItem.value.next(event);
+          }
         }
       })
     );

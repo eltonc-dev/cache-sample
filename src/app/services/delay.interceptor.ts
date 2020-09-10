@@ -6,7 +6,7 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {delay} from 'rxjs/operators';
+import {debounceTime, delay} from 'rxjs/operators';
 
 @Injectable()
 export class DelayInterceptor implements HttpInterceptor {
