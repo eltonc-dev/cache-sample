@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { ItemsListPageComponent } from './items-list-page/items-list-page.component';
 import { CarsListPageComponent } from './cars-list-page/cars-list-page.component';
 import {RouterModule} from '@angular/router';
@@ -13,6 +13,9 @@ import {MatListModule} from '@angular/material/list';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
+import {useSimpleCache} from '../../projects/cache/src/lib/interceptors/interceptors';
+import {SimpleCacheInterceptor} from '../../projects/cache/src/lib/interceptors/simple-cache.interceptor';
+import {DelayInterceptor} from './services/delay.interceptor';
 
 @NgModule({
   declarations: [
@@ -46,7 +49,14 @@ import {MatButtonModule} from '@angular/material/button';
     MatMenuModule,
     MatButtonModule
   ],
-  providers: [],
+  providers: [
+    useSimpleCache,
+    { // just to simulate a real connection to backend
+      provide: HTTP_INTERCEPTORS,
+      useClass: DelayInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

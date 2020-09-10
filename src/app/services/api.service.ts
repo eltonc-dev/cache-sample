@@ -11,12 +11,12 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   getItems(): Observable<Array<any>> {
-    return this.http.get<Array<any>>('assets/data/data.json')
-      .pipe(delay(5000));
+    return this.http.get<Array<any>>('assets/data/data.json');
+      // .pipe(delay(5000));
   }
 
   getCars(): Observable<Array<any>> {
-    return this.http.get<Array<any>>('assets/data/cars.json')
-      .pipe(delay(5000));
+    return this.http.get<Array<any>>('assets/data/cars.json');
+      // .pipe(delay(5000));
   }
 }
