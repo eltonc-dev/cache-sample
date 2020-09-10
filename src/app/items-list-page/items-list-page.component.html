@@ -1,5 +1,18 @@
-<ul>
-  <li *ngFor="let item of (items$ | async)">
-    {{ item.first_name }}
-  </li>
-</ul>
+<mat-list role="list">
+  <div *ngFor="let item of items" >
+    <mat-list-item role="listitem">
+        <div>
+        {{ item.first_name }} {{ item.last_name }}
+      </div>
+      <div>
+        <small>
+          {{ item.email}}
+        </small>
+      </div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </div>
+</mat-list>
+
+
+<mat-spinner *ngIf="loading"></mat-spinner>

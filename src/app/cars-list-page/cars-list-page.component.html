@@ -1,1 +1,11 @@
-<p>cars-list-page works!</p>
+<mat-list role="list">
+  <div *ngFor="let item of items" >
+    <mat-list-item role="listitem">
+      {{ item.car }} - {{ item.year}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </div>
+</mat-list>
+
+
+<mat-spinner *ngIf="loading"></mat-spinner>

@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  color: black
+}
+
+mat-spinner {
+  position: absolute;
+  margin: 30px auto;
+}

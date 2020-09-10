@@ -10,9 +10,14 @@ export class ItemsListPageComponent implements OnInit {
 
   constructor(private api: ApiService) { }
 
-  items$ = this.api.getItems();
+  loading = true;
+  items = null;
 
   ngOnInit(): void {
+    this.api.getItems().subscribe(items => {
+      this.loading = false;
+      this.items = items;
+    });
   }
 
 }

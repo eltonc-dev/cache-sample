@@ -1,7 +1,15 @@
-<div>
-  <span><a routerLink="items">Items</a></span>
-  <span><a routerLink="cars">Cars</a></span>
-</div>
+<mat-toolbar>
+  <span>Cache Sample</span>
+  <span class="example-spacer"></span>
+  <span class="example-spacer"></span>
+  <button mat-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" routerLink="items">
+    Items
+  </button>
+  <button mat-button class="example-icon" aria-label="Example icon-button with share icon" routerLink="cars">
+    Cars
+  </button>
+</mat-toolbar>
+
 <div>
   <router-outlet></router-outlet>
 </div>

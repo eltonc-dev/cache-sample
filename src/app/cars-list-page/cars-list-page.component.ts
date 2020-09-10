@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ApiService} from '../services/api.service';
 
 @Component({
   selector: 'app-cars-list-page',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CarsListPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private api: ApiService) { }
+
+  loading = true;
+  items = null;
 
   ngOnInit(): void {
+    this.api.getCars().subscribe(items => {
+      this.loading = false;
+      this.items = items;
+    });
   }
 
 }
