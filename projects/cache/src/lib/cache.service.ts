@@ -15,6 +15,21 @@ export class CacheService {
 
   constructor() { }
 
+
+
+  private isAgeOk(maxAge, cacheItem: CacheItem): boolean {
+    return moment(cacheItem.created, this.DATE_FORMAT).add(maxAge, 'ms').isSameOrAfter(moment());
+  }
+
+  isCacheValid(req: HttpRequest<any>): boolean {
+    const cacheItem = this.get(req);
+    const ttl = req.headers.get('x_cache_ttl') || 30000;
+    if (cacheItem) {
+      return this.isAgeOk(ttl, cacheItem);
+    }
+    return false;
+  }
+
   isCacheable(req: HttpRequest<any>): boolean {
     return req && req.method === 'GET';
   }
@@ -35,7 +50,7 @@ export class CacheService {
     this.cacheRepository[req.urlWithParams] = this.createCacheItem(req);
   }
 
-  private delete(key): void {
+  public delete(key: string): void {
     const cachedItem = this.get(key);
     if (cachedItem) {
       // cachedItem.value.unsubscribe();

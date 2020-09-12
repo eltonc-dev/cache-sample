@@ -25,7 +25,7 @@ export class SimpleCacheInterceptor implements HttpInterceptor {
     // return next.handle(request);
   }
 
-  protected sendRequest(req: HttpRequest<any>, next: HttpHandler) {
+  protected sendRequest(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     this.cache.set(req);
     return next.handle(req).pipe(
       tap(event => {

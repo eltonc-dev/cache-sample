@@ -13,15 +13,19 @@ import {MatListModule} from '@angular/material/list';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
-import {useFakeCache, useSimpleCache} from '../../projects/cache/src/lib/interceptors/interceptors';
+import {useFakeCache, useRefresh, useSimpleCache} from '../../projects/cache/src/lib/interceptors/interceptors';
 import {SimpleCacheInterceptor} from '../../projects/cache/src/lib/interceptors/simple-cache.interceptor';
 import {DelayInterceptor} from './services/delay.interceptor';
+import { UserComponent } from './user/user.component';
+import { RefreshComponent } from './refresh/refresh.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ItemsListPageComponent,
-    CarsListPageComponent
+    CarsListPageComponent,
+    UserComponent,
+    RefreshComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +56,7 @@ import {DelayInterceptor} from './services/delay.interceptor';
   providers: [
     // useSimpleCache,
     useFakeCache,
+    useRefresh
     // { // just to simulate a real connection to backend
     //   provide: HTTP_INTERCEPTORS,
     //   useClass: DelayInterceptor,

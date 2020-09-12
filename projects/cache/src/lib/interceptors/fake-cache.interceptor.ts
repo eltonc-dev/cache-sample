@@ -5,14 +5,15 @@ import {
   HttpEvent,
   HttpInterceptor, HttpResponse
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {CacheService} from '../cache.service';
 import {startWith, tap} from 'rxjs/operators';
+import {RefreshService} from '../refresh.service';
 
 @Injectable()
 export class FakeCacheInterceptor implements HttpInterceptor {
 
-  constructor(private cache: CacheService) {}
+  constructor(private cache: CacheService, private refreshService: RefreshService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
@@ -24,15 +25,29 @@ export class FakeCacheInterceptor implements HttpInterceptor {
   private sendMultipleRequest(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
     const cachedResponse = this.cache.get(req);
     if (cachedResponse) {
-      // const request = req.clone({
-      //   setHeaders: {
-      //     x_cache_update_key: 'true',
-      //   },
-      // });
+      if (this.cache.isCacheValid(req)) {
+        return of(this.cache.get(req).result);
+      }
+      this.cache.set(req);
+      const request = req.clone({
+        setHeaders: {
+          x_cache_update_key: 'true',
+        },
+      });
       console.log('use cache', req.urlWithParams, cachedResponse.result);
 
-      return next.handle(req)
-        .pipe(startWith<any>(cachedResponse.result));
+      return next.handle(request)
+        .pipe(
+          startWith<any>(cachedResponse.result),
+          tap(event => {
+            if (event instanceof HttpResponse) {
+              const cachedItem = this.cache.get(req);
+              if (cachedItem && !cachedItem.value.isStopped) {
+                cachedItem.result = event;
+              }
+            }
+          })
+        );
     } else {
       console.log('set cache', req.urlWithParams);
       this.cache.set(req);

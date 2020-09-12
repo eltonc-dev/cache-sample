@@ -6,3 +6,6 @@ export * from './lib/cache.service';
 export * from './lib/cache.module';
 
 export * from './lib/interceptors/interceptors';
+
+
+export * from './lib/refresh.service';

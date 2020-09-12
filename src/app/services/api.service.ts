@@ -20,6 +20,11 @@ export class ApiService {
       // .pipe(delay(5000));
   }
 
+  getUser(): Observable<any> {
+    return this.http.get<any>('http://localhost:5000/user');
+    // return this.http.get<Array<any>>('https://swapi.dev/api/films').pipe(pluck('results'));
+  }
+
   getPeople(): Observable<Array<any>> {
     return this.http.get<Array<any>>('http://localhost:5000/items');
     // return this.http.get<Array<any>>('https://swapi.dev/api/films').pipe(pluck('results'));
