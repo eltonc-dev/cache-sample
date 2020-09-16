@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {debounce, debounceTime, delay, pluck} from 'rxjs/operators';
+import {Observable, of, throwError} from 'rxjs';
+import {catchError, debounce, debounceTime, delay, map, pluck, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +26,23 @@ export class ApiService {
   }
 
   getPeople(): Observable<Array<any>> {
-    return this.http.get<Array<any>>('http://localhost:5000/items');
+    // return of([]).pipe(
+    //   map(i => {
+    //       throw new Error('error');
+    //       return i;
+    //   }),
+    //   catchError(err => of([{
+    //     id: 0,
+    //     first_name: 'bla'
+    //   }])
+    // ));
+    return this.http.get<Array<any>>('http://localhost:5000/items')
+      // .pipe(
+      //     catchError(err => of([{
+      //       id: 0,
+      //       first_name: 'bla'
+      //     }]))
+      // );
     // return this.http.get<Array<any>>('https://swapi.dev/api/films').pipe(pluck('results'));
   }
 

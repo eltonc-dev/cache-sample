@@ -15,8 +15,12 @@ export class ItemsListPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.api.getPeople().subscribe(items => {
+      console.log('result 2', items);
       this.items = items;
-    }).add(() => {
+    }, error => {
+      console.log('result 2 - error', error);
+      }
+    ).add(() => {
       this.loading = false;
     });
   }

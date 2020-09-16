@@ -20,7 +20,7 @@ export class AppComponent {
     private requestHelper: HttpHelperService
   ) {
     this.requestHelper.requestPendingChanges().subscribe( value => {
-      console.log('isValue', value);
+      console.log('isValue', value, this.requestHelper.pendingRequest);
     });
   }
 

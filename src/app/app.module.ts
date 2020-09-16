@@ -17,6 +17,7 @@ import {useCounter, useError, useFakeCache, useRefresh} from '../../projects/cac
 import { UserComponent } from './user/user.component';
 import { RefreshComponent } from './refresh/refresh.component';
 import { ToastrModule } from 'ngx-toastr';
+import {RetryComponent} from './retry/retry.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ToastrModule } from 'ngx-toastr';
     ItemsListPageComponent,
     CarsListPageComponent,
     UserComponent,
-    RefreshComponent
+    RefreshComponent,
+    RetryComponent
   ],
   imports: [
     BrowserModule,

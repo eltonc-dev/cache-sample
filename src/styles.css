@@ -11,4 +11,10 @@ mat-list {
 mat-list-item {
   color: black;
 }
+mat-spinner {
+  position: absolute !important;
+  display: inline-block !important;
+  left: calc(50vw - 50px);
+  top: calc(50vh - 50px);
+}
 

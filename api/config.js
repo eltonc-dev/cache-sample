@@ -36,9 +36,10 @@ module.exports = () => {
   app.route('/items')
     .get((req, res) => {
       setTimeout(() => {
-        res.status(200).json(list1)
+          // res.status(200).json(list1);
         // res.status(200).json();
-      }, 7000)
+         res.status(400).json();
+      }, 100)
   });
   app.route('/items')
     .post((req, res) => {
