@@ -3,6 +3,8 @@ import {SimpleCacheInterceptor} from './simple-cache.interceptor';
 import {FakeCacheInterceptor} from './fake-cache.interceptor';
 import {RefreshService} from '../refresh.service';
 import {RefreshInterceptor} from './refresh.interceptor';
+import {ErrorInterceptor} from './error.interceptor';
+import {CountRequestsInterceptor} from './count-requests.interceptor';
 
 export const useSimpleCache = {
   provide: HTTP_INTERCEPTORS,
@@ -19,5 +21,17 @@ export const useFakeCache = {
 export const useRefresh = {
   provide: HTTP_INTERCEPTORS,
   useClass: RefreshInterceptor,
+  multi: true
+};
+
+export const useError = {
+  provide: HTTP_INTERCEPTORS,
+  useClass: ErrorInterceptor,
+  multi: true
+};
+
+export const useCounter = {
+  provide: HTTP_INTERCEPTORS,
+  useClass: CountRequestsInterceptor,
   multi: true
 };

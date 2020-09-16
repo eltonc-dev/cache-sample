@@ -11,8 +11,13 @@
 </mat-toolbar>
 <div>
   <app-user></app-user>
+
+  <button (click)="addItem()"> Add item </button>
+  <button (click)="reset()" > Resetar item </button>
+  <button (click)="resetCars()" > Resetar Carros </button>
 </div>
 <div>
   <router-outlet></router-outlet>
 </div>
 <app-refresh></app-refresh>
+<mat-spinner *ngIf="isRequestPending$ | async"></mat-spinner>

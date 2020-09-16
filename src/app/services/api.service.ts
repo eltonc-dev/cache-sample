@@ -30,6 +30,10 @@ export class ApiService {
     // return this.http.get<Array<any>>('https://swapi.dev/api/films').pipe(pluck('results'));
   }
 
+  savePeople(): Observable<any> {
+    return this.http.post<Observable<any>>('http://localhost:5000/items', null);
+  }
+
   getShips(): Observable<Array<any>> {
     return this.http.get<Array<any>>('http://localhost:5000/cars');
     // return this.http.get<Array<any>>('https://swapi.dev/api/starships').pipe(pluck('results'));

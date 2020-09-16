@@ -14,9 +14,11 @@ export class CarsListPageComponent implements OnInit {
   items = null;
 
   ngOnInit(): void {
+    console.log('init');
     this.api.getShips().subscribe(items => {
-      this.loading = false;
       this.items = items;
+    }).add(() => {
+      this.loading = false;
     });
   }
 

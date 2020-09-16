@@ -15,8 +15,9 @@ export class ItemsListPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.api.getPeople().subscribe(items => {
-      this.loading = false;
       this.items = items;
+    }).add(() => {
+      this.loading = false;
     });
   }
 

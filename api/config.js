@@ -5,6 +5,16 @@ const items = require('./data/data')();
 const cars = require('./data/cars')();
 const user = require('./data/user')();
 
+const list1 = [
+  {
+    id: 1,
+    first_name: 'Elyse',
+  },
+  {
+    id: 2,
+    first_name: 'Algo',
+  },
+];
 
 
 
@@ -23,11 +33,24 @@ module.exports = () => {
     }, 8000)
   });
 
-  app.route('/items').get((req, res) => {
-    setTimeout(() => {
-      res.status(200).json(items)
-    }, 7000)
+  app.route('/items')
+    .get((req, res) => {
+      setTimeout(() => {
+        res.status(200).json(list1)
+        // res.status(200).json();
+      }, 7000)
   });
+  app.route('/items')
+    .post((req, res) => {
+      setTimeout(() => {
+        const item = {
+          id: (list1.length + 1),
+          first_name: 'Item ' + (list1.length + 1)
+        };
+        list1.push(item);
+        res.status(200).json(item);
+      }, 6000);
+    });
 
   app.route('/cars').get((req, res) => {
     setTimeout(() => {
